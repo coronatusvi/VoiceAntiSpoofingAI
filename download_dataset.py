@@ -13,17 +13,6 @@
 #     os.system(cmd)
 
 # extract file tar.gz to folder data
-
-# import tarfile
-# import os
-# if __name__ == "__main__":
-#     cmd = "git clone https://github.com/coronatusvi/ASVspoof2025_VN.git"
-#     os.system(cmd)
-# tar = tarfile.open("ASVspoof2025_VN/cv-corpus-20.0-delta-2024-12-06-vi.tar.gz")
-# tar.extractall()
-# tar.close()
-
-
 import tarfile
 import os
 
