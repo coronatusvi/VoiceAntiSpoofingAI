@@ -24,21 +24,24 @@
 # tar.close()
 
 
-import tarfile
+from pydub import AudioSegment
 import os
 
-if __name__ == "__main__":
-    repo_dir = "ASVspoof2025_VN"
-    tar_path = os.path.join(repo_dir, "cv-corpus-20.0-delta-2024-12-06-vi.tar.gz")
+def convert_mp3_to_flac(mp3_path, flac_path):
+    # Load mp3 file
+    audio = AudioSegment.from_mp3(mp3_path)
     
-    # Clone repository nếu chưa tồn tại
-    if not os.path.exists(repo_dir):
-        os.system(f"git clone https://github.com/coronatusvi/ASVspoof2025_VN.git")
+    # Set parameters
+    audio = audio.set_frame_rate(16000)
+    audio = audio.set_channels(1)
+    audio = audio.set_sample_width(2)  # 2 bytes = 16 bits (s16)
+    
+    # Export as flac
+    audio.export(flac_path, format="flac")
 
-    # Kiểm tra file .tar.gz có tồn tại không
-    if not os.path.exists(tar_path):
-        print(f"Error: File {tar_path}")
-    else:
-        
-        with tarfile.open(tar_path, "r:gz") as tar:
-            tar.extractall(path=repo_dir)
+if __name__ == "__main__":
+    mp3_path = "path/to/your/file.mp3"
+    flac_path = "path/to/your/file.flac"
+    
+    convert_mp3_to_flac(mp3_path, flac_path)
+    print(f"Converted {mp3_path} to {flac_path}")
