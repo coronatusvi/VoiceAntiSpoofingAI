@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
     # Kiểm tra file .tar.gz có tồn tại không
     if not os.path.exists(tar_path):
-        print(f"Error: File {tar_path})
+        print(f"Error: File {tar_path}")
     else:
         
         with tarfile.open(tar_path, "r:gz") as tar:
