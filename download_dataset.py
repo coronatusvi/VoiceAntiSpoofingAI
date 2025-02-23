@@ -24,24 +24,42 @@
 # tar.close()
 
 
-from pydub import AudioSegment
+import tarfile
 import os
+from pydub import AudioSegment
 
 def convert_mp3_to_flac(mp3_path, flac_path):
-    # Load mp3 file
-    audio = AudioSegment.from_mp3(mp3_path)
-    
-    # Set parameters
-    audio = audio.set_frame_rate(16000)
-    audio = audio.set_channels(1)
-    audio = audio.set_sample_width(2)  # 2 bytes = 16 bits (s16)
-    
-    # Export as flac
-    audio.export(flac_path, format="flac")
+    try:
+        audio = AudioSegment.from_mp3(mp3_path)
+        
+        # Set parameters
+        audio = audio.set_frame_rate(16000)
+        audio = audio.set_channels(1)
+        audio = audio.set_sample_width(2)  # 2 bytes = 16 bits (s16)
+        
+        # Export as flac
+        audio.export(flac_path, format="flac")
+    except Exception as e:
+        print(f"Error converting {mp3_path} to {flac_path}: {e}")
 
 if __name__ == "__main__":
-    mp3_path = "path/to/your/file.mp3"
-    flac_path = "path/to/your/file.flac"
+    repo_dir = "ASVspoof2025_VN"
+    tar_path = os.path.join(repo_dir, "cv-corpus-20.0-delta-2024-12-06-vi.tar.gz")
     
-    convert_mp3_to_flac(mp3_path, flac_path)
-    print(f"Converted {mp3_path} to {flac_path}")
+    if not os.path.exists(repo_dir):
+        os.system(f"git clone https://github.com/coronatusvi/ASVspoof2025_VN.git")
+
+    if not os.path.exists(tar_path):
+        print(f"Error: File {tar_path} does not exist.")
+    else:
+        with tarfile.open(tar_path, "r:gz") as tar:
+            tar.extractall(path=repo_dir)
+        
+        # Convert MP3 files to FLAC and delete the original MP3 files
+        for root, dirs, files in os.walk(repo_dir):
+            for file in files:
+                if file.endswith(".mp3"):
+                    mp3_path = os.path.join(root, file)
+                    flac_path = os.path.splitext(mp3_path)[0] + ".flac"
+                    convert_mp3_to_flac(mp3_path, flac_path)
+                    os.remove(mp3_path)
