@@ -161,3 +161,4 @@ dmypy.json
 .pyre/
 *.zip
 /ASVspoof2025_VN
+/VN/SPOOF/viet-tts
