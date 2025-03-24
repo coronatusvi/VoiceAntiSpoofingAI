@@ -1,2 +1,0 @@
-VN_0001 VN_T_0001 - A01 bonafide
-VN_0002 VN_T_0002 - A02 spoof
