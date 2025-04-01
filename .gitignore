@@ -162,5 +162,8 @@ dmypy.json
 *.zip
 /ASVspoof2025_VN
 /VN/SPOOF/viet-tts
-/VN/SPOOF
+/VN/SPOOF/La
+/VN/SPOOF/merge
+/VN/SPOOF/5000_final_virtual
+/VN/SPOOF/A05_A15
 /LA_Original
