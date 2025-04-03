@@ -80,8 +80,10 @@ def main(args: argparse.Namespace) -> None:
     # set device
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print("Device: {}".format(device))
-    # if device == "cpu": # Không có GPU
-    #     raise ValueError("GPU not detected!")
+    if device == "cuda":
+        torch.cuda.set_per_process_memory_fraction(0.8, device=0)
+    if device == "cpu": # Không có GPU
+        raise ValueError("GPU not detected!")
 
     # define model architecture
     model = get_model(model_config, device)
