@@ -8,14 +8,15 @@ MIT license
 """
 import argparse
 import json
-import os
+# import os
 import sys
 import warnings
 from importlib import import_module
 from pathlib import Path
 from shutil import copy
 from typing import Dict, List, Union
-
+import os
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
