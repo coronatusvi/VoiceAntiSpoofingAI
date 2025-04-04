@@ -17,6 +17,7 @@ from shutil import copy
 from typing import Dict, List, Union
 import os
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -82,7 +83,7 @@ def main(args: argparse.Namespace) -> None:
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print("Device: {}".format(device))
     if device == "cuda":
-        torch.cuda.set_per_process_memory_fraction(0.8, device=0)
+        torch.cuda.set_per_process_memory_fraction(0.3, device=0)
     if device == "cpu": # Không có GPU
         raise ValueError("GPU not detected!")
 
